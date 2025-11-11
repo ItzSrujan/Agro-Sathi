@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./ImageUpload.css";
-// import translate from "translate";
+import translate from "translate";
 
 const ImageUpload = () => {
   const [image, setImage] = useState(null);
