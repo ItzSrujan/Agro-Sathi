@@ -49,7 +49,7 @@ const ImageUpload = () => {
     formData.append("longitude", longitude);
 
     try {
-      const res = await axios.post("${backend}/api/agri/image", formData);
+      const res = await axios.post(`${backend}/api/agri/image`, formData);
 
       const { disease, suggestion, location, temperature } = res.data;
 
@@ -80,7 +80,7 @@ const ImageUpload = () => {
   if (!result.trim()) return alert("🧠 Analyze an image first.");
 
   try {
-    await axios.post("${backend}/api/agri/send", {
+    await axios.post(`${backend}/api/agri/send`, {
       phone,
       message: result,
     });
