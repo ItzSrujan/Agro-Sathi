@@ -124,7 +124,7 @@ router.post("/image", upload.single("image"), async (req, res) => {
   // ✅ NEW: Fetch City Name
   let city = "Unknown Area";
   try {
-    const locRes = await axios.post(`${process.env.BACKEND_URL}/api/location/get-location`, {
+    const locRes = await axios.post(`/api/location/get-location`, {
     latitude, longitude
     });
     city = locRes.data.location || city;
@@ -135,7 +135,7 @@ router.post("/image", upload.single("image"), async (req, res) => {
   // ✅ NEW: Fetch Weather
  let temperature = "--°C";
 try {
-  const weatherRes = await axios.post(`${process.env.BACKEND_URL}/api/weather/current`, {
+  const weatherRes = await axios.post(`$/api/weather/current`, {
   latitude, longitude
 });
 
