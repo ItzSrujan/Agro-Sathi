@@ -71,33 +71,33 @@ def preprocess_image(image_bytes):
 # 🔍 Prediction Endpoint
 @app.route("/predict", methods=["POST"])
 def predict():
-    image_bytes = None
-
-    # ✅ If frontend sent multipart/form-data
+    # ✅ Case 1: Frontend/Backend sent multipart/form-data
     if "image" in request.files:
         image_bytes = request.files["image"].read()
     else:
-        # ✅ If backend sent raw bytes (common case in Cloud Run)
-        image_bytes = request.data
+        # ❌ If no file came through, return error clearly
+        return jsonify({"error": "Expected multipart form with field 'image'"}), 400
 
-    if not image_bytes:
-        return jsonify({"error": "No image received"}), 400
+    try:
+        input_data = preprocess_image(image_bytes)
 
-    input_data = preprocess_image(image_bytes)
+        interpreter.set_tensor(input_details[0]['index'], input_data)
+        interpreter.invoke()
+        output_data = interpreter.get_tensor(output_details[0]['index'])
 
-    interpreter.set_tensor(input_details[0]['index'], input_data)
-    interpreter.invoke()
-    output_data = interpreter.get_tensor(output_details[0]['index'])
+        predicted_index = int(np.argmax(output_data))
+        confidence = float(np.max(output_data))
+        class_name = label_map.get(predicted_index, "Unknown")
 
-    predicted_index = int(np.argmax(output_data))
-    confidence = float(np.max(output_data))
-    class_name = label_map.get(predicted_index, "Unknown")
+        return jsonify({
+            "class_id": predicted_index,
+            "class_name": class_name,
+            "confidence": round(confidence * 100, 2)
+        })
 
-    return jsonify({
-        "class_id": predicted_index,
-        "class_name": class_name,
-        "confidence": round(confidence * 100, 2)
-    })
+    except Exception as e:
+        print("🔥 MODEL CRASH:", e)
+        return jsonify({"error": "Model processing failed", "details": str(e)}), 500
 
 # 🚀 Start Flask Server
 if __name__ == "__main__":

@@ -104,29 +104,24 @@ router.post("/image", upload.single("image"), async (req, res) => {
   let result = {};
 
   // ✅ MODEL PREDICTION (UNCHANGED)
-  try {
-    const form = new FormData();
-    form.append("image", imageBuffer, { filename: "plant.jpg" });
+  // MODEL PREDICTION
+try {
+  const form = new FormData();
+  form.append("image", imageBuffer, "plant.jpg");
 
-    const flaskRes = await axios.post(`${process.env.MODEL_URL}/predict`, form, {
-  headers: {
-    ...form.getHeaders(),
-    "Content-Type": `multipart/form-data; boundary=${form._boundary}`,
-  },
-  maxBodyLength: Infinity,
-  maxContentLength: Infinity,
-});
+  const flaskRes = await axios.post(`${process.env.MODEL_URL}/predict`, form, {
+    headers: form.getHeaders(),
+    maxBodyLength: Infinity,
+    maxContentLength: Infinity,
+  });
 
+  result.disease = flaskRes.data.class_name || "Unknown";
+  result.confidence = flaskRes.data.confidence;
 
-    console.log("🔍 Flask Result:", flaskRes.data);
-
-    result.disease = flaskRes.data.class_name || "Unknown";
-    result.confidence = flaskRes.data.confidence;
-
-  } catch (err) {
-    console.error("❌ ML Prediction Error:", err.message);
-    return res.status(500).json({ error: "Image prediction failed." });
-  }
+} catch (err) {
+  console.error("❌ ML Prediction Error:", err.response?.data || err.message);
+  return res.status(500).json({ error: "Image prediction failed." });
+}
 
   // ✅ NEW: Fetch City Name
   let city = "Unknown Area";
