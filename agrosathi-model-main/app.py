@@ -71,11 +71,18 @@ def preprocess_image(image_bytes):
 # 🔍 Prediction Endpoint
 @app.route("/predict", methods=["POST"])
 def predict():
-    if "image" not in request.files:
-        return jsonify({"error": "No image uploaded"}), 400
+    image_bytes = None
 
-    image_file = request.files["image"]
-    image_bytes = image_file.read()
+    # ✅ If frontend sent multipart/form-data
+    if "image" in request.files:
+        image_bytes = request.files["image"].read()
+    else:
+        # ✅ If backend sent raw bytes (common case in Cloud Run)
+        image_bytes = request.data
+
+    if not image_bytes:
+        return jsonify({"error": "No image received"}), 400
+
     input_data = preprocess_image(image_bytes)
 
     interpreter.set_tensor(input_details[0]['index'], input_data)
@@ -94,4 +101,4 @@ def predict():
 
 # 🚀 Start Flask Server
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    app.run(host="0.0.0.0", port=8080)
