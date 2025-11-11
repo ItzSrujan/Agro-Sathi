@@ -114,8 +114,16 @@ try {
     maxBodyLength: Infinity,
     maxContentLength: Infinity,
   });
+  let rawName = flaskRes.data.class_name || "Unknown";
 
-  result.disease = flaskRes.data.class_name || "Unknown";
+// ✅ Remove triple/extra underscores, replace with spaces, remove () characters
+  let cleanedName = rawName
+    .replace(/_/g, " ")       // Convert _ → space
+    .replace(/\s+/g, " ")     // Remove multiple spaces
+    .replace(/[()]/g, "")     // Remove brackets
+    .trim();
+
+  result.disease = cleanedName;
   result.confidence = flaskRes.data.confidence;
 
 } catch (err) {
