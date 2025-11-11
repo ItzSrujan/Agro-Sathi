@@ -31,7 +31,7 @@ const LandingPage = () => {
 
 const fetchLocation = async (latitude, longitude) => {
   try {
-    const res = await fetch("http://localhost:5000/api/location/get-location", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/location/get-location`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ latitude, longitude })
@@ -47,7 +47,7 @@ const fetchLocation = async (latitude, longitude) => {
 
   const fetchWeather = async (latitude, longitude) => {
   try {
-    const res = await fetch("http://localhost:5000/api/weather/current", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/weather/current`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ latitude, longitude })
