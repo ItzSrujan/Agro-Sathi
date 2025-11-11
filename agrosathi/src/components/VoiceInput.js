@@ -10,7 +10,7 @@ const VoiceInput = () => {
   const [phone, setPhone] = useState("+91XXXXXXXXXX");
   const [language, setLanguage] = useState("en");
   const [voices, setVoices] = useState([]);
-
+  const backend = process.env.BACKEND_URL || "http://localhost:5000";
   // ✅ Load system voices once
   useEffect(() => {
     const loadVoices = () => {
@@ -40,7 +40,7 @@ const VoiceInput = () => {
       try {
         console.log("🎤 Heard:", speechResult);
 
-        const res = await axios.post("http://localhost:5000/api/agri/voice", {
+        const res = await axios.post("${backend}/api/agri/voice", {
           query: speechResult,
           phone,
           language,
@@ -71,7 +71,7 @@ const VoiceInput = () => {
     if (!messageToSend.trim()) return alert("🎤 Please speak first.");
 
     try {
-      await axios.post("http://localhost:5000/api/agri/send", {
+      await axios.post("${backend}/api/agri/send", {
         phone,
         message: messageToSend,
       });
