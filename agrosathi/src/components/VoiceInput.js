@@ -10,7 +10,7 @@ const VoiceInput = () => {
   const [phone, setPhone] = useState("+91XXXXXXXXXX");
   const [language, setLanguage] = useState("en");
   const [voices, setVoices] = useState([]);
-  const backend = process.env.BACKEND_URL || "http://localhost:5000";
+  const backend = process.env.BACKEND_URL;
   // ✅ Load system voices once
   useEffect(() => {
     const loadVoices = () => {
