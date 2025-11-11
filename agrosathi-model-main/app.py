@@ -85,7 +85,8 @@ def predict():
 
     predicted_index = int(np.argmax(output_data))
     confidence = float(np.max(output_data))
-    class_name = label_map.get(predicted_index, "Unknown")
+    raw_name = label_map.get(predicted_index, "Unknown")
+    class_name = raw_name.replace("_", " ").replace("(", "").replace(")", "")
 
     return jsonify({
             "class_id": predicted_index,
