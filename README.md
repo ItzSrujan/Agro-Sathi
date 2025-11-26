@@ -11,7 +11,7 @@ The site is live at : https://agro-sathi-nu.vercel.app/
 AgroSathi/
 ├── agrosathi/ # React frontend
 ├── agrosathi-backend/ # Node.js + Express backend
-├── agrosathi-ml/ # Flask + TFLite ML API
+├── agrosathi-model-main/ # Flask + TFLite ML API
 
 ---
 
@@ -37,7 +37,7 @@ cd AgroSathi
 
 2. Setup and Start ML Model Server (Flask)
 
-cd agrosathi-ml
+cd agrosathi-model-main
 pip install -r requirements.txt
 python app.py
 
@@ -47,7 +47,7 @@ Make sure model.tflite and labels.txt are in the agrosathi-ml folder.
 
 cd ../agrosathi-backend
 npm install
-node index.js
+node App.js
 
 This handles the AI integration via OpenRouter, routes for image/voice analysis, and WhatsApp message generation.
 
