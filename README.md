@@ -34,7 +34,6 @@ git clone https://github.com/ItzSrujan/Agro-Sathi.git
 cd AgroSathi
 
 
-
 2. Setup and Start ML Model Server (Flask)
 
 cd agrosathi-model-main
