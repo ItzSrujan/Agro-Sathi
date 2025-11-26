@@ -2,7 +2,7 @@
 
 AgroSathi is a multilingual, AI-integrated smart farming assistant that helps farmers detect plant diseases using images and get personalized voice/text-based agricultural advice in native Indian languages like Marathi and Hindi.
 
-The site is live at : https://agrosathi-frontend.vercel.app/
+The site is live at : https://agro-sathi-nu.vercel.app/
 
 ---
 
