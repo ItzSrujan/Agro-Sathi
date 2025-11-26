@@ -66,7 +66,8 @@ Accessible at http://localhost:3000
 | Frontend  | React.js                         |
 | Backend   | Node.js + Express                |
 | ML Server | Python + Flask + TensorFlow Lite |
-| AI API    | OpenRouter (ChatGPT-compatible)  |
+| AI API    | OpenRouter (ChatGPT-compatible)  
+|
 | Voice     | Google Text-to-Speech (TTS)      |
 | Hosting   | Local (Google Cloud optional)    |
 
@@ -85,7 +86,7 @@ AgroSathi integrates with WhatsApp to deliver personalized farming advice direct
 
 ### 💡 How it Works:
 
-- After submitting a voice query or image, the system generates disease detection + AI-generated advice.
+- After submitting a voice query or image, the system generates disease detection + AI-generated advice with 7-days action plan.
 - The advice is automatically sent to the farmer's WhatsApp number using the Twilio API.
 
 ### ⚠️ Note:
