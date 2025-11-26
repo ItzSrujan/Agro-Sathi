@@ -30,7 +30,7 @@ AgroSathi/
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/Lucifer123486/AgroSathi.git
+git clone https://github.com/ItzSrujan/Agro-Sathi.git
 cd AgroSathi
 
 
